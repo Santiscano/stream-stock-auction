@@ -4,7 +4,10 @@
   "packageManager": "npm@10.8.2",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pre-dev": "turbo build check-types",
+    "dev": "turbo dev",
+    "start": "node apps/api/dist/main.js"
   },
   "keywords": [],
   "author": "",
