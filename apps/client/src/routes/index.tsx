@@ -64,7 +64,7 @@ const AllRouters = () => {
       <Route path='new-password' element={ <NewPasswordPage/> }/>
     </Route>
 
-    {/* <Route element={ <WithAuthentication/> }> */}
+    <Route element={ <WithAuthentication/> }>
       <Route path='dashboard' element={ <DashboardLayout/> }>
         <Route path='home' element={ <HomePage/> }/>
         <Route path='components' element={ <ComponentsPage/>} />
@@ -77,7 +77,7 @@ const AllRouters = () => {
         <Route path='collapsed-2/test3' element={ <TestPage/> }/>
         <Route path='collapsed-2/test4' element={ <TestPage/> }/>
       </Route>
-    {/* </Route> */}
+    </Route>
 
     <Route path='401' element={ <h4>Unauthorized 401 falta token</h4> }/>
     <Route path='404' element={ <NotFoundPage/> }/>
