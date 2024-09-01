@@ -2,6 +2,74 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
+### AUTH
+Sistema de autenticacion y autorizacion, con login, register y rutas protegidas.
+Para usarse en modulos externos es necesario llamar el decorador @Auth() el cual puede ser sin parametros y esto significa que solo necesita el token, pero si se le entregan parametros entonces solo sera permitido para el rol que este ahi EJM:
+```ts
+// .controller.ts
+import { Controller, Get, Headers } from '@nestjs/common';
+import { IncomingHttpHeaders } from 'http';
+
+import { Auth, GetUser } from 'src/auth/decorators';
+import { ValidRoles } from 'src/auth/interfaces';
+import { User } from 'src/auth/entities/user.entity';
+
+
+@Controller('auth')
+export class AuthController {
+
+  /*
+  * ruta publica que no necestia Token
+  */
+  @Get('public')
+  testPublicRoute() {
+    return { 
+      ok: true, 
+      message: 'This is a public route' 
+    };
+  }
+
+  /*
+  * Ruta privada necesita token pero no valida roles
+  */
+  @Get('private-all-roles')
+  @Auth()
+  testingPrivateRoute( 
+    @GetUser() user: User, // para acceder al user es necesario que sea privada porque el usuario se obtiene del token que se obtiene en el middleware de auth
+    @Headers() headers: IncomingHttpHeaders,
+  ) {
+    return { 
+      ok: true, 
+      message: 'This is a private route only for admin', 
+      user, 
+      headers 
+    };
+  }
+
+  /*
+  * Ruta privada necesita token y solo pueden acceder los que tienen rol admin y superAdmin
+  */
+  @Get('private-only-admin')
+  @Auth( ValidRoles.admin, ValidRoles.superAdmin )
+  tesPrivateRouteOnlyAdmin(
+    @GetUser() user: User,
+    @Headers() headers: IncomingHttpHeaders,
+  ) {
+    return { 
+      ok: true, 
+      message: 'This is a private route only for admin', 
+      user, 
+      headers 
+    };
+  }
+}
+```
+
+
+
+
+
+
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 

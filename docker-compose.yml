@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  mysqldb:
+    image: mysql:latest
+    container_name: mysqldb-local
+    # env_file: .\apps\api\.env # lo pondre en la ruta
+    environment:
+      MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+      MYSQL_DATABASE: $DB_DB
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+    ports:
+      - $DB_PORT:3306
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-client
+    depends_on:
+      - mysqldb
+    environment:
+      PMA_HOST: mysqldb
+      MYSQL_ROOT_PASSWORD: 123123
+    ports:
+      - "8080:80"
