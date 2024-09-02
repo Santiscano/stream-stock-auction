@@ -8,8 +8,12 @@ import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { JwtPayload } from '../interfaces';
 
+/**
+ * Strategy to validate the JWT token and extract the user information from it.
+ */
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
+
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,

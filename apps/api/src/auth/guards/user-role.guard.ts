@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 import { User } from '../entities/user.entity';
 import { META_ROLES } from '../decorators';
 
+/**
+ * Guard to validate if the user has the necessary role to access the route protected by the RoleProtected decorator.
+ */
 @Injectable()
 export class UserRoleGuard implements CanActivate {
 

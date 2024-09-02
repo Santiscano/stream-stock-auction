@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Headers, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { IncomingHttpHeaders } from 'http';
 
@@ -19,6 +19,10 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
+  @ApiResponse({ status: 201, description: 'User created', type: User })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.authService.create( createUserDto );
   }
