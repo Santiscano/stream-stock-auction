@@ -11,6 +11,7 @@ import * as Joi from 'joi';
 import { AuthModule } from './auth/auth.module';
 import { CommonModule } from './common/common.module';
 import { EnvConfiguration } from './config/env.config';
+import { MailsModule } from './mails/mails.module';
 
 
 @Module({
@@ -50,6 +51,7 @@ import { EnvConfiguration } from './config/env.config';
 
     AuthModule,
     CommonModule,
+    MailsModule,
   ],
   controllers: [],
   providers: [],

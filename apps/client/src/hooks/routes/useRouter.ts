@@ -17,5 +17,12 @@ export function useRouter() {
     [nav]
   );
 
-  return router;
+  const handleNavigate = (route: string) => {
+    router.navigate(route);
+  }
+
+  return {
+    router,
+    handleNavigate
+  };
 }

@@ -28,7 +28,6 @@ export const useMode = () => {
         };
 
         localStorage.setItem("settings", JSON.stringify(newSettings));
-        console.log('newSettings: ', newSettings);
       }
     }),
     [prevMode, localStorageSettings]

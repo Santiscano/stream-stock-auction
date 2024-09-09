@@ -202,11 +202,9 @@ export const CollapsibledItemsList: FC<CollapsabledItemsListProps> = (
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handlePopoverOpen = (e: MouseEvent<HTMLElement>) => {
-    console.log('entro');
     setAnchorEl(e.currentTarget);
   }
   const handlePopoverClose = () => {
-    console.log('salio')
     setAnchorEl(null)
   };
 

@@ -65,7 +65,6 @@ export const menuItem = (theme:any) => ({
 // ----------------------------------------------------------------------
 
 export function bgBlur(props:any): SxProps<Theme> {
-  console.log('props: ', props);
   const color = props?.color || '#000000';
   const blur = props?.blur || 6;
   const opacity = props?.opacity || 0.8;

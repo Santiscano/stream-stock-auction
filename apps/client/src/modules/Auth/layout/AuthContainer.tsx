@@ -47,7 +47,7 @@ const AuthContainerLayout: FC<Props> = ({ children, title, subtitle }) => {
 
           {subtitle && (subtitle)}
 
-          <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
+          {/* <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
             <Button
               fullWidth
               size="large"
@@ -77,7 +77,7 @@ const AuthContainerLayout: FC<Props> = ({ children, title, subtitle }) => {
             >
               <Iconify icon="eva:twitter-fill" color="#1C9CEA" />
             </Button>
-          </Stack>
+          </Stack> */}
 
           <Divider sx={{ my: 3 }}>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>

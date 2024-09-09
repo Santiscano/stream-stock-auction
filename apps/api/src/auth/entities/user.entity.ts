@@ -47,7 +47,7 @@ export class User {
     example: true,
     description: 'User status'
   })
-  @Column('boolean', { default: true })
+  @Column('boolean', { default: false })
   isActive: boolean;
 
   @ApiProperty({

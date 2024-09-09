@@ -34,7 +34,7 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 const AccountPopover = () => {
-  const router = useRouter();
+  const { handleNavigate } = useRouter();
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event: any) => {
@@ -49,7 +49,7 @@ const AccountPopover = () => {
     handleClose();
     unSetToken();
     setTimeout(() => {
-      router.navigate("/")
+      handleNavigate("/")
     })
   };
 

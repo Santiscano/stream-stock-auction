@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import LoadingButton from '@mui/lab/LoadingButton';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -11,26 +9,13 @@ import Typography from '@mui/material/Typography';
 import Iconify from '../../../../components/common/Iconify';
 import { useRouter } from '../../../../hooks/routes/useRouter';
 import AuthContainerLayout from '../../layout/AuthContainer';
+import useSignUp from './hook/useSignUp';
 
 
 const SignUpView = () => {
-  const router = useRouter();
+  const { handleNavigate } = useRouter();
+  const { showPassword, setShowPassword, loading, handleSignUp, SnackbarAlert } = useSignUp();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-
-  const handleNavigate = (route: string) => {
-    router.navigate(route);
-  };
-  const handleRegister = () => {
-    // actions register...
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false)
-      handleNavigate("/dashboard/home");
-    }, 1000 * 3);
-  };
 
   const renderSubtitle = (
     <Typography variant="body2">
@@ -49,9 +34,17 @@ const SignUpView = () => {
       title='Registrarse en Integrator 🚀🔭'
       subtitle={renderSubtitle}
     >
-      <>
+      <form onSubmit={handleSignUp}>
         <Stack spacing={3} sx={{ my: 3 }}>
-          <TextField name="email" label="Correo electronico" />
+          <TextField 
+            name="fullName" 
+            label="Nombre Completo"
+          />
+
+          <TextField 
+            name="email" 
+            label="Correo electronico" 
+          />
 
           <TextField
             name="password"
@@ -74,13 +67,14 @@ const SignUpView = () => {
           size="large"
           type="submit"
           variant="contained"
-          color="inherit"
+          color="primary"
           loading={loading}
-          onClick={handleRegister}
         >
           Registrarse
         </LoadingButton>
-      </>
+      </form>
+
+      <SnackbarAlert />
     </AuthContainerLayout>
   )
 }

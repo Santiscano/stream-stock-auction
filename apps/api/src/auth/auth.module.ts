@@ -10,6 +10,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 
 import { User } from './entities/user.entity';
 import { Role } from './entities/roles.entity';
+import { MailsModule } from 'src/mails/mails.module';
 
 @Module({
   controllers: [ AuthController ],
@@ -18,6 +19,7 @@ import { Role } from './entities/roles.entity';
     ConfigModule,
     TypeOrmModule.forFeature([User, Role]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
+    MailsModule,
     JwtModule.registerAsync({
       imports: [ ConfigModule ],
       inject: [ ConfigService ],

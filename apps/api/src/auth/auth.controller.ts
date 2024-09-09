@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Headers, Post } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Post, Query, Res } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-
+import { Response } from 'express';	
 import { IncomingHttpHeaders } from 'http';
 
 import { AuthService } from './auth.service';
@@ -12,6 +12,7 @@ import {
 import { CreateUserDto, LoginUserDto } from './dto';
 import { User } from './entities/user.entity';
 import { ValidRoles } from './interfaces';
+import { ForgotPasswordDto, ResetPasswordDto } from './dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -31,6 +32,33 @@ export class AuthController {
   loginUser(@Body() loginUserDto: LoginUserDto ) {
     return this.authService.signin( loginUserDto );
   }
+
+  @Post('forgot-password')
+  forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+    return this.authService.forgotPassword(forgotPasswordDto);
+  }
+
+  @Post('reset-password')
+  @Auth()
+  resetPassword(
+    @Body() resetPasswordDto: ResetPasswordDto,
+    @Headers() headers: IncomingHttpHeaders,
+  ) {
+    return this.authService.resetPassword(resetPasswordDto, headers);
+  }
+
+  @Get('active-account')
+  activeAccount(
+    @Query('token') token: string,
+    @Res() res: Response,
+  ) {
+    return this.authService.activeAccount(token, res);
+  }
+
+
+
+
+
 
   @Get('check-status')
   @Auth()

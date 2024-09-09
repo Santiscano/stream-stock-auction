@@ -13,10 +13,10 @@ export const ServerErrorPage = lazy(() => import('../modules/StatusCodes/pages/S
 export const NotFoundPage = lazy(() => import('../modules/StatusCodes/pages/NotFound'));
 
 // *Auth
-export const LoginPage = lazy(() => import('../modules/Auth/pages/Login'));
 export const SignUpPage = lazy(() => import('../modules/Auth/pages/SignUp'));
+export const LoginPage = lazy(() => import('../modules/Auth/pages/Login'));
 export const ForgotPasswordPage = lazy(() => import('../modules/Auth/pages/ForgotPassword'));
-export const NewPasswordPage = lazy(() => import('../modules/Auth/pages/NewPassword'));
+export const ResetPasswordPage = lazy(() => import('../modules/Auth/pages/ResetPassword'));
 
 // *Dashboard
 export const DashboardLayout = lazy(() => import('../modules/Dashboard/layout'));
@@ -58,10 +58,10 @@ const AllRouters = () => {
     {/* not protected */}
     <Route element={ <WithoutAuthentication/> }>
       <Route index element={ <LoginPage/> }/>
-      <Route path='sign-in' element={ <LoginPage/> }/>
       <Route path='sign-up' element={ <SignUpPage/> }/>
+      <Route path='sign-in' element={ <LoginPage/> }/>
       <Route path='forgot-password' element={ <ForgotPasswordPage/> }/>
-      <Route path='new-password' element={ <NewPasswordPage/> }/>
+      <Route path='reset-password' element={ <ResetPasswordPage/> } />
     </Route>
 
     <Route element={ <WithAuthentication/> }>

@@ -1,5 +1,3 @@
-import { FormEvent, useState } from 'react';
-
 import LoadingButton from '@mui/lab/LoadingButton';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -7,58 +5,13 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
 
 import Iconify from '../../../../components/common/Iconify';
-import { getHeaderMultipart, setToken, set } from '../../../../components/config/SessionSettings';
-import { useRouter } from '../../../../hooks/routes/useRouter';
-import useSnackbarGlobal from '../../../../hooks/useSnackbar';
-import { URL_API } from '../../../../config/environments';
-
 import AuthContainerLayout from '../../layout/AuthContainer';
+import useLogin from './hook/useLogin';
 
 const LoginView = () => {
-  const router = useRouter();
-  const { SnackbarAlert, showSnackbar } = useSnackbarGlobal();
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleNavigate = (route: string) => {
-    router.navigate(route);
-  };
-
-  const handleLogin = async(event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setLoading(true);
-    try {
-      // @ts-ignore
-      const form = new FormData(event.target);
-      form.append('method', 'email');
-  
-      const getToken = await axios.post(`${URL_API}/api/v1/auth/signin`, 
-        form, getHeaderMultipart() 
-      );
-      console.log('res', getToken);
-      // actions login...
-      if (getToken.status === 200 && getToken.data.data.token) {
-        showSnackbar({ message: 'Inicio de sesión exitoso', severity: 'success' });
-        setToken(getToken.data.data.token);
-        set('idroles', getToken.data.data.user.idroles);
-        set('fullName', getToken.data.data.user.fullName);
-        handleNavigate("/dashboard/home");
-      } else {
-        showSnackbar({ message: getToken.data.message, severity: 'error' });
-      }
-
-    } catch (error) {
-      console.log('error: ', error);
-      showSnackbar({ message: 'Error en el servidor al iniciar sesión', severity: 'error' });
-    } finally {
-      setLoading(false);
-    }
-
-  };
+  const { handleLogin, handleNavigate, loading, showPassword, setShowPassword, SnackbarAlert } = useLogin();
 
   const renderSubtitle = (
     <Typography variant="body2">
@@ -83,16 +36,14 @@ const LoginView = () => {
           <TextField 
             name="email" 
             label="Correo electronico" 
-            // value={data.email} 
-            // onChange={e => handleEmail(e.target.value)} 
+            required
           />
 
           <TextField
             name="password"
             label="Contraseña"
+            required
             type={showPassword ? 'text' : 'password'}
-            // value={data.password}
-            // onChange={e => handlePassword(e.target.value)}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -122,7 +73,6 @@ const LoginView = () => {
           variant="contained"
           color="primary"
           loading={loading}
-          // onClick={handleLogin}
         >
           Ingresar
         </LoadingButton>

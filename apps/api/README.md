@@ -66,7 +66,16 @@ export class AuthController {
 ```
 
 
+### MAILERS
+```bash
+$ npm install @nestjs-modules/mailer nodemailer handlebars --workspace api
+$ npm install --save-dev @types/nodemailer --workspace api
+$ npm install --save @nestjs/config --workspace api
+```
 
+```.env
+
+```
 
 
 

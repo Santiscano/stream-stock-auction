@@ -8,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('Bootstrap');
 
+  app.enableCors(); // habilita CORS para que la API pueda ser consumida por cualquier cliente, en producción se debe configurar para que solo se permita el acceso a los clientes que se deseen.
   app.setGlobalPrefix('api');
 
   app.useGlobalPipes(

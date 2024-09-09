@@ -9,7 +9,7 @@ import WithAuthentication from '../middlewares/WithAuthentication';
 export const LoginPage = lazy(() => import('../modules/Auth/pages/Login'));
 export const SignUpPage = lazy(() => import('../modules/Auth/pages/SignUp'));
 export const ForgotPasswordPage = lazy(() => import('../modules/Auth/pages/ForgotPassword'));
-export const NewPasswordPage = lazy(() => import('../modules/Auth/pages/NewPassword'));
+export const NewPasswordPage = lazy(() => import('../modules/Auth/pages/ConfirmRegister'));
 
 // *pages
 export const ServerErrorPage = lazy(() => import('../modules/StatusCodes/pages/ServerError'));

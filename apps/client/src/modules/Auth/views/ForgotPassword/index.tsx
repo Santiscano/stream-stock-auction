@@ -1,54 +1,46 @@
-import { useState } from 'react';
 
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import LoadingButton from '@mui/lab/LoadingButton';
-
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 
 import { useRouter } from '../../../../hooks/routes/useRouter';
+import useForgotPassword from './hook/useForgotPassword';
 import AuthContainerLayout from '../../layout/AuthContainer';
 
-
-const ForgotPasswordView = () => {
-  const router = useRouter();
-
-  const [loading, setLoading] = useState(false);
-
-  const handleNavigate = (route: string) => {
-    router.navigate(route);
-  };
-  const handleForgotPassword = () => {
-    // actions forgot password ...
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false)
-      handleNavigate("/dashboard/home");
-    }, 3000);
-  };
+const NewPasswordView = () => {
+  const { handleForgotPassword, loading, SnackbarAlert } = useForgotPassword();
+  const { handleNavigate } = useRouter();
 
   const renderSubtitle = (
     <Typography variant="body2">
-      Regresar al
-      <Link
-        variant="subtitle2"
-        sx={{ ml: 0.5, cursor: "pointer" }}
-        onClick={() => handleNavigate("/sign-in")}
-      >
-        inicio de sesion
-      </Link>
+      Ingresa tu correo electronico.
     </Typography>
   );
 
   return (
     <AuthContainerLayout
-      title='Recuperar Contraseña'
+      title='Restablecer Contraseña'
       subtitle={renderSubtitle}
     >
-      <>
+      <form onSubmit={handleForgotPassword}>
         <Stack spacing={3} sx={{ my: 3 }}>
-          <TextField name="email" label="Correo electronico" />
+          <TextField 
+            name="email"
+            label="Correo electronico" 
+            required
+          />
+        </Stack>
+
+        <Stack direction="row" alignItems="center" justifyContent="flex-end" sx={{ my: 3, cursor: "pointer" }}>
+          <Link
+            variant="subtitle2"
+            underline="hover"
+            onClick={() => handleNavigate("/")}
+          >
+            Regresar al inicio de sesión.
+          </Link>
         </Stack>
 
         <LoadingButton
@@ -56,15 +48,17 @@ const ForgotPasswordView = () => {
           size="large"
           type="submit"
           variant="contained"
-          color="inherit"
+          color="primary"
           loading={loading}
-          onClick={handleForgotPassword}
         >
-          Ingresar
+          Recuperar
         </LoadingButton>
-      </>
+      </form>
+
+      {/* alerta */}
+      <SnackbarAlert />
     </AuthContainerLayout>
   )
 }
 
-export default ForgotPasswordView
+export default NewPasswordView
