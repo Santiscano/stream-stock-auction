@@ -7,10 +7,10 @@ import '@stream-io/video-react-sdk/dist/css/styles.css';
 import { set } from 'date-fns';
 import { useEffect, useState } from 'react';
 
-const apiKey = 'mmhfdzb5evj2'; // the API key can be found in the "Credentials" section
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiR2VuZXJhbF9Dcml4X01hZGluZSIsImlzcyI6Imh0dHBzOi8vcHJvbnRvLmdldHN0cmVhbS5pbyIsInN1YiI6InVzZXIvR2VuZXJhbF9Dcml4X01hZGluZSIsImlhdCI6MTcxNDkxNTYxMSwiZXhwIjoxNzE1NTIwNDE2fQ.dXEP2DJ-FmMU18MbCxwbhZGhn6M1rhY2oq8jISmyDu8'; // the token can be found in the "Credentials" section
-const userId = 'General_Crix_Madine'; // the user id can be found in the "Credentials" section
-const callId = 'lwaC6PJR9sau'; // the call id can be found in the "Credentials" section
+const apiKey = process.env.VITE_API_KEY_STREAM_IO; // the API key can be found in the "Credentials" section
+const token =  process.env.VITE_TOKEN_STREAM_IO; // the token can be found in the "Credentials" section
+const userId = process.env.VITE_USER_ID_STREAM_IO; // the user id can be found in the "Credentials" section
+const callId = process.env.VITE_CALL_ID_STREAM_IO; // the call id can be found in the "Credentials" section
 
 // set up the user object
 const user: User = {
