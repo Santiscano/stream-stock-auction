@@ -23,8 +23,7 @@ import { Response } from 'express';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
     private readonly mailService: MailsService,
@@ -62,6 +61,7 @@ export class AuthService {
 
   async signin(loginUserDto: LoginUserDto) {
     const { email, password } = loginUserDto;
+    if (password==='') throw new BadRequestException('Please provide a password');
 
     const user = await this.userRepository.findOne({
       where: { email }
@@ -140,6 +140,17 @@ export class AuthService {
       return res.status(400).json({ message: 'Error activating account' });
     }
   }
+
+  async validateGoogleUser(googleUser: CreateUserDto) {
+    const user = await this.userRepository.findOne({
+      where: { email: googleUser.email }
+    });
+    if (user) return user;
+    const newUser = await this.create(googleUser);
+    await this.userRepository.update({ email: googleUser.email }, { isActive: true });
+    return newUser;
+  }
+
 
   async checkAuthStatus(user: User) {
     return {

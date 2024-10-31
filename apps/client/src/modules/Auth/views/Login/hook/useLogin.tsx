@@ -14,7 +14,7 @@ const useLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async(event: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
     try {
@@ -63,9 +63,8 @@ const useLogin = () => {
     } finally {
       setLoading(false);
     }
-
   };
-  
+
   return {
     handleNavigate,
     handleLogin,

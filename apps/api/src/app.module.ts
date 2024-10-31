@@ -19,6 +19,7 @@ import { MailsModule } from './mails/mails.module';
     // configuracion de las variables de entorno
     ConfigModule.forRoot({
       isGlobal: true,
+      expandVariables: true, // permite el uso de ${var} en las variables de entorno
       load: [ EnvConfiguration ], // Esta funcion se cargan las variables de entorno
       validationSchema: Joi.object({ // valida las variables de entorno con Joi
         DB_HOST: Joi.string().required(), // valida que la variable de entorno DB_HOST sea un string y sea requerida
@@ -45,8 +46,8 @@ import { MailsModule } from './mails/mails.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,      
       database: process.env.DB_DB,
-      autoLoadEntities: true, // carga las entidades de forma automatica en el modulo de typeorm 
-      synchronize: Boolean(Number(process.env.ORM_SYNCHRONIZE)), // sincroniza los cambios en los tipos de entidades, normalmente en produccion esta en false
+      autoLoadEntities: process.env.ENVIROMENT === "development" ? true : false, // carga las entidades de forma automatica en el modulo de typeorm 
+      synchronize: process.env.ENVIROMENT === "development" ? Boolean(Number(process.env.ORM_SYNCHRONIZE)) : false, // sincroniza los cambios en los tipos de entidades, normalmente en produccion esta en false
     }),
 
     AuthModule,

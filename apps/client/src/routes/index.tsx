@@ -60,6 +60,7 @@ const AllRouters = () => {
       <Route index element={ <LoginPage/> }/>
       <Route path='sign-up' element={ <SignUpPage/> }/>
       <Route path='sign-in' element={ <LoginPage/> }/>
+      <Route path='login-google' element={ <LoginPage/> }/>
       <Route path='forgot-password' element={ <ForgotPasswordPage/> }/>
       <Route path='reset-password' element={ <ResetPasswordPage/> } />
     </Route>

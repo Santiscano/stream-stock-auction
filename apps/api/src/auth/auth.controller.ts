@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Headers, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, Get, Headers, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';	
 import { IncomingHttpHeaders } from 'http';
@@ -13,11 +13,16 @@ import { CreateUserDto, LoginUserDto } from './dto';
 import { User } from './entities/user.entity';
 import { ValidRoles } from './interfaces';
 import { ForgotPasswordDto, ResetPasswordDto } from './dto';
+import { GoogleAuthGuard } from './guards/google-auth/google-auth.guard';
+import { ConfigService } from '@nestjs/config';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Post('signup')
   @ApiResponse({ status: 201, description: 'User created', type: User })
@@ -53,6 +58,20 @@ export class AuthController {
     @Res() res: Response,
   ) {
     return this.authService.activeAccount(token, res);
+  }
+
+  @Get("google/login")
+  @UseGuards( GoogleAuthGuard )
+  googleLogin() {}
+
+
+  @Get("google/callback")
+  @UseGuards( GoogleAuthGuard )
+  async googleCallback( @Req() req, @Res() res: Response ) {
+    const { email, password } = req.user;
+    const user = await this.authService.signin({ email, password });
+    const urlFront = this.configService.get('FRONTEND_URL') || 'http://localhost:3000';
+    res.redirect(`${urlFront}?token=` + user.token);
   }
 
 

@@ -16,7 +16,7 @@ npm run dev
 ```
 4. despues de estar levantada la base de datos se puede insertar los roles por defecto que podrian ser *OPCIONAL*
 ```sql
-INSERT INTO `roles`(`name`) VALUES ('Admin'), ('Super-Admin'), ('Developer')
+INSERT INTO `roles`(`name`) VALUES ('Admin'), ('Super-Admin'), ('Developer'), ('User');
 ```
 
 

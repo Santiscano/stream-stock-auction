@@ -11,12 +11,15 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { User } from './entities/user.entity';
 import { Role } from './entities/roles.entity';
 import { MailsModule } from 'src/mails/mails.module';
+import googleOauthConfig from './config/google-oauth.config';
+import { GoogleStrategy } from './strategies/google.strategy';
 
 @Module({
   controllers: [ AuthController ],
-  providers: [ AuthService, JwtStrategy ],
+  providers: [ AuthService, JwtStrategy, GoogleStrategy ],
   imports: [
     ConfigModule,
+    ConfigModule.forFeature(googleOauthConfig),
     TypeOrmModule.forFeature([User, Role]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     MailsModule,

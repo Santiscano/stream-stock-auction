@@ -79,6 +79,13 @@ export class User {
   @JoinColumn({ name: 'id_role'})
   role: Role;
 
+  @ApiProperty({
+    example: 'https://www.google.com',
+    description: 'User avatar'
+  })
+  @Column('varchar')
+  avatarUrl: string;
+
   @BeforeInsert()
   checkFieldsBeforeInsert() {
     this.email = this.email.toLowerCase().trim();

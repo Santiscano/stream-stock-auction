@@ -12,5 +12,8 @@ export const EnvConfiguration = () => ({
     SECRET_KEY:process.env.SECRET_KEY,
     API_KEY:process.env.API_KEY,
     GENERATOR_PHRASE:process.env.GENERATOR_PHRASE,
+
+    // Auth
+    
 });
 
